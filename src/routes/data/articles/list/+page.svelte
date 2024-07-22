@@ -37,7 +37,7 @@
             <p>
                 <strong>{record.title}</strong>
 
-                <span class="clickable" ><a href="/">View</a></span>
+                <span class="clickable" ><a href="/data/articles/{record.slug}">View</a></span>
                 <span class="clickable" ><a href="/">Edit</a></span>
                 <span class="clickable" on:click={() => deleteRecord(record)}><a href="">Delete</a></span>
             </p>

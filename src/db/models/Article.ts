@@ -2,7 +2,7 @@ import type {ObjectId} from "mongodb";
 
 enum FileType {Document, Image, Other }
 export enum ArticleCategory {Project = 'Project', Blogpost='Blogpost', Paper='Paper', Study='Study', Thought='Thought', Misc='Misc'}
-export enum ArticleState {draft='draft',finished='finished',published='published',archived='archived' }
+export enum ArticleState {Draft='Draft',Finished='Finished',Published='Published',Archived='Archived' }
 
 export class Article implements ArticleInterface {
 
@@ -14,6 +14,7 @@ export class Article implements ArticleInterface {
     state: ArticleState;
     content: string;
     highlighted: boolean;
+    published:boolean;
     float: number;
     coverImageUrl: string;
     related: {
@@ -34,9 +35,10 @@ export class Article implements ArticleInterface {
         summary = '',
         category = ArticleCategory.Misc,
         tags = [],
-        state = ArticleState.draft,
+        state = ArticleState.Draft,
         content = '',
         highlighted = false,
+        published = false,
         float = 0,
         coverImageUrl = '',
         related = {
@@ -59,6 +61,7 @@ export class Article implements ArticleInterface {
         this.state = state;
         this.content = content;
         this.highlighted = highlighted;
+        this.published = published;
         this.float = float;
         this.coverImageUrl = coverImageUrl;
         this.related = {
@@ -85,6 +88,7 @@ export interface ArticleInterface {
     state: ArticleState;
     content: string;
     highlighted: boolean;
+    published:boolean;
     float: number;
     coverImageUrl: string;
     related: {
@@ -129,6 +133,7 @@ export interface ArticleRequest {
     state: ArticleState;
     content: string;
     highlighted: boolean;
+    published:boolean;
     float: number;
     coverImageUrl: string;
     related: {

@@ -7,19 +7,33 @@ import type { ArticleRequest } from '$db/models/Article';
 const ArticleCollection = db.collection('articles');
 
 export async function GET({ url }) {
-    let articles = await ArticleCollection
-        .find({})
-        .sort({"createdAt": -1})
-        .toArray();
+    const slug = url.searchParams.get('slug');
+    if(!slug) {
+        let articles = await ArticleCollection
+            .find({})
+            .sort({"createdAt": -1})
+            .toArray();
 
-    return json({
-        status:200,
-        body: { articles }
-    });
+        return json({
+            status:200,
+            body: { articles }
+        });
+    } else {
+        let payload = await ArticleCollection
+            .findOne({'slug': slug})
+
+
+        return json({
+            status:200,
+            body: payload
+        });
+    }
+
 }
 
 export async function POST({ request }) {
     const payload: ArticleRequest = await request.json();
+    // console.log(payload);
     let dbResponse = await ArticleCollection.insertOne(payload);
     return json({
         status:200,
