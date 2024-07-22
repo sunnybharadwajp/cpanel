@@ -1,7 +1,8 @@
 import {json} from "@sveltejs/kit";
+
 import {ObjectId} from "mongodb";
 import db from "$db/mongo";
-import type { Article, ArticleRequest } from '$lib/types';
+import type { ArticleRequest } from '$db/models/Article';
 
 const ArticleCollection = db.collection('articles');
 
@@ -18,14 +19,15 @@ export async function GET({ url }) {
 }
 
 export async function POST({ request }) {
-    const { title, content, type, imageUrl }: ArticleRequest = await request.json();
-    const payload = { title, content, type, imageUrl };
+    const payload: ArticleRequest = await request.json();
     let dbResponse = await ArticleCollection.insertOne(payload);
-
     return json({
-        message: "got it!",
-        record: payload,
-        response: dbResponse
+        status:200,
+        body: {
+            message: "got it!",
+            record: payload,
+            response: dbResponse
+        }
     });
 }
 
@@ -48,7 +50,4 @@ export async function DELETE({ url }) {
             return new Response("Error");
         }
     }
-
-
-
 }

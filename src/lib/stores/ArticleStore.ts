@@ -1,14 +1,14 @@
 import { writable } from 'svelte/store';
-import type {Article} from "$lib/types";
+import type {ArticleInterface} from "$db/models/Article";
 
 
-const articleStore = writable<Article[]>([]);
+const articleStore = writable<ArticleInterface[]>([]);
 
-const setArticles = (articles:Article[] ) => {
+const setArticles = (articles:ArticleInterface[] ) => {
     articleStore.set(articles);
 }
 
-const addArticle = (article: Article) => {
+const addArticle = (article: ArticleInterface) => {
     articleStore.update(articles => [...articles, article])
 }
 

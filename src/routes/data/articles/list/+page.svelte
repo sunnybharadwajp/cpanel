@@ -1,17 +1,17 @@
 <script lang="ts">
     import {articleStore, deleteArticle} from "$lib/stores/ArticleStore";
-    import type {Article} from "$lib/types";
+    import type {ArticleInterface} from "$db/models/Article";
     import {goto} from "$app/navigation";
 
 
     export let data;
 
 
-    let records:Article[];
+    let records:ArticleInterface[];
     $: records = $articleStore;
     let reset = {};
 
-    let deleteRecord = async (record: Article) => {
+    let deleteRecord = async (record: ArticleInterface) => {
         try {
             let response = await fetch(`/data/articles/api?id=${record._id}`, { method: 'DELETE'})
             let payload = await response.json();
