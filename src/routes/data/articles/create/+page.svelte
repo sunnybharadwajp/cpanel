@@ -13,10 +13,13 @@
 
     let article = new Article();
     let categories = Object.keys(ArticleCategory);
-    let states = Object.keys(ArticleState)
+    let states = Object.keys(ArticleState);
 
-    let published = "";
-    let highlighted = "";
+    let submitButtonDisabled: boolean = false;
+
+
+    let published = "No";
+    let highlighted = "No";
     let previewHTML = "";
     let formValid = false;
 
@@ -39,9 +42,10 @@
         //slugify
         article.slug = slugify(article.title);
 
-
         article.published = published === "Yes";
         article.highlighted = highlighted === "Yes";
+
+        console.log(article);
 
         const newArticle: ArticleRequest = article;
 
@@ -56,7 +60,7 @@
             if (response.ok) {
                 const data = await response.json();
                 // addArticle(data.article);
-                goto('/data/articles/list');
+                await goto('/data/articles/list');
             }
         }
 
@@ -73,11 +77,21 @@
     onDestroy(() => {
         //save record
     })
+
+
 </script>
 
 <form>
     <div class="form-grid">
         <div class="left">
+            <div class="title-bar">
+                <h3>Create a new Article</h3>
+                <div class="button-group">
+                    <button on:click={handleSave} disabled>Save</button>
+                    <button  disabled="{submitButtonDisabled}" type="submit" on:click|preventDefault={handleSubmit}>Add Article</button>
+                </div>
+            </div>
+            <div class="spacer-small"></div>
             <div class="field">
                 <label for="title">Title</label>
                 <input id="title" name="title" type="text" bind:value={article.title}>
@@ -124,14 +138,14 @@
             </div>
             <div class="field">
                 <label for="published">Published?</label>
-                <input type="radio" id="published" name="published" bind:group={article.published} value="Yes"><span>Yes</span>
-                <input type="radio" id="published" name="published" bind:group={article.published} value="No" checked><span>No</span>
+                <input type="radio" id="published" name="published" bind:group={published} value="Yes"><span>Yes</span>
+                <input type="radio" id="published" name="published" bind:group={published} value="No" checked><span>No</span>
             </div>
 
             <div class="field">
                 <label for="highlighted">Highlighted?</label>
-                <input type="radio" id="highlighted" name="highlighted" bind:group={article.highlighted} value="Yes"><span>Yes</span>
-                <input type="radio" id="highlighted" name="highlighted" bind:group={article.highlighted} value="No" checked><span>No</span>
+                <input type="radio" id="highlighted" name="highlighted" bind:group={highlighted} value="Yes"><span>Yes</span>
+                <input type="radio" id="highlighted" name="highlighted" bind:group={highlighted} value="No" checked><span>No</span>
             </div>
 
             <div class="field">
@@ -141,16 +155,7 @@
             <div class="field">
 
             </div>
-            <div class="field">
-                <button type="submit" on:click|preventDefault={handleSubmit}>Add Article</button>
-                <button on:click={updatePreview}>Update Preview</button>
-            </div>
-            <div class="preview">
-                {#if previewHTML}
-                    {@html previewHTML}
-                    {previewHTML}
-                {/if}
-            </div>
+
         </div>
         <div class="right">
             <div class="field">
@@ -159,49 +164,11 @@
             </div>
         </div>
     </div>
-
 </form>
 
 
 
 
 <style>
-    .form-grid {
-        display: grid;
-        grid-template-columns: 1fr 2fr;
-    }
 
-    .left, .right {
-        padding: 2rem;
-    }
-
-    .right {
-        padding: 2rem 2rem 2rem 0;
-    }
-
-    textarea[id="content"] {
-        width: 100%;
-        height: calc(100vh - 4rem);
-        padding: 1rem;
-    }
-    .field {
-        margin-bottom: 0.6rem;
-    }
-
-    label {
-        display: block;
-        font-weight: bold;
-    }
-
-    select {
-        min-width: 140px;
-    }
-
-    input[type="text"], input[type="number"], input[type="url"], textarea {
-        width: 100%;
-    }
-
-    input[type="radio"] {
-        margin-right: 0.3rem;
-    }
 </style>

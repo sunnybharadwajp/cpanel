@@ -2,7 +2,7 @@ import type {ObjectId} from "mongodb";
 
 enum FileType {Document, Image, Other }
 export enum ArticleCategory {Project = 'Project', Blogpost='Blogpost', Paper='Paper', Study='Study', Thought='Thought', Misc='Misc'}
-export enum ArticleState {Draft='Draft',Finished='Finished',Published='Published',Archived='Archived' }
+export enum ArticleState {Draft='Draft',Finished='Finished',Archived='Archived' }
 
 export class Article implements ArticleInterface {
 
@@ -31,7 +31,7 @@ export class Article implements ArticleInterface {
 
     constructor({
         slug = '',
-        title = '',
+        title = 'Untitled Article',
         summary = '',
         category = ArticleCategory.Misc,
         tags = [],

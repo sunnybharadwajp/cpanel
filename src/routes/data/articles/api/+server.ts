@@ -46,10 +46,8 @@ export async function POST({ request }) {
 }
 
 export async function DELETE({ url }) {
-    // const { id } = await request.json();
     const id = url.searchParams.get('id');
     if (id) {
-        const objId = new ObjectId(id);
         try {
             await ArticleCollection.deleteOne({_id: new ObjectId(id)});
             // console.log("deleted");
@@ -64,4 +62,42 @@ export async function DELETE({ url }) {
             return new Response("Error");
         }
     }
+    return json({
+
+    });
+}
+
+export async function PUT({ url, request }) {
+    const id = url.searchParams.get('id');
+    if(id) {
+        const payload: ArticleRequest = await request.json();
+        try {
+            console.log("here");
+            let dbResponse = await ArticleCollection.updateOne({_id: new ObjectId(id)}, {$set: payload})
+
+            return json({
+                status: 200,
+                body: {
+                    message: "Updated the record",
+                    response: dbResponse
+                }
+            });
+        }
+        catch(e) {
+            console.log(e);
+            return json({
+                status: 500,
+                body: {
+                    message: "Could not update!",
+                    error: e
+                }
+            });
+        }
+    }
+    return json({
+        status: 400,
+        body: {
+            message: "id not found"
+        }
+    });
 }

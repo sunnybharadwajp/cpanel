@@ -11,6 +11,9 @@ importers:
       firebase:
         specifier: ^10.12.4
         version: 10.12.4
+      lucide-svelte:
+        specifier: ^0.414.0
+        version: 0.414.0(svelte@4.2.18)
       marked:
         specifier: ^13.0.2
         version: 13.0.2
@@ -875,6 +878,11 @@ packages:
 
   loupe@2.3.7:
     resolution: {integrity: sha512-zSMINGVYkdpYSOBmLi0D1Uo7JU9nVdQKrHxC8eYlV+9YKK9WePqAlL7lSlorG/U2Fw1w0hTBmaa/jrQ3UbPHtA==}
+
+  lucide-svelte@0.414.0:
+    resolution: {integrity: sha512-LTEzcm5rix345H2rLxH0nBNZRaFx4I2yL48yDgiIkM9jtUb4LZ629e0MuUmeosS35dGnLFmnGeGNDOt9SKouDA==}
+    peerDependencies:
+      svelte: ^3 || ^4 || ^5.0.0-next.42
 
   magic-string@0.30.10:
     resolution: {integrity: sha512-iIRwTIf0QKV3UAnYK4PU8uiEc4SRh5jX0mwpIwETPpHdhVM4f53RSwS/vXvN1JhGX+Cs7B8qIq3d6AH49O5fAQ==}
@@ -2232,6 +2240,10 @@ snapshots:
   loupe@2.3.7:
     dependencies:
       get-func-name: 2.0.2
+
+  lucide-svelte@0.414.0(svelte@4.2.18):
+    dependencies:
+      svelte: 4.2.18
 
   magic-string@0.30.10:
     dependencies:
