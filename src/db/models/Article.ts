@@ -5,7 +5,6 @@ export enum ArticleCategory {Project = 'Project', Blogpost='Blogpost', Paper='Pa
 export enum ArticleState {Draft='Draft',Finished='Finished',Archived='Archived' }
 
 export class Article implements ArticleInterface {
-
     slug: string;
     title: string;
     summary: string;
@@ -78,6 +77,27 @@ export class Article implements ArticleInterface {
     }
 }
 
+
+
+export interface File {
+    _id?: ObjectId | string;
+    title: string;
+    type: FileType;
+    description: string;
+    url: string;
+}
+
+export interface Link {
+    _id?: ObjectId | string;
+    description: string;
+    url: string;
+}
+
+export interface ArticleTag {
+    _id?: ObjectId | string;
+    title: string;
+}
+
 export interface ArticleInterface {
     _id?: ObjectId | string;
     slug: string;
@@ -102,26 +122,6 @@ export interface ArticleInterface {
         updatedAt:Date;
         publishedAt: Date | string;
     };
-}
-
-export interface File {
-    _id?: ObjectId | string;
-    title: string;
-    type: FileType;
-    description: string;
-    url: string;
-}
-
-export interface Link {
-    _id?: ObjectId | string;
-    title: string;
-    url: string;
-    comment: string;
-}
-
-export interface ArticleTag {
-    _id?: ObjectId | string;
-    title: string;
 }
 
 export interface ArticleRequest {

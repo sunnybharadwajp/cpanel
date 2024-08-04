@@ -29,3 +29,15 @@ export function getDayTime(dateObj: Date){
         dateObj: dateObj,
     };
 }
+
+export function generateId() {
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    let id = "";
+    let checksum = 0;
+    for (let i = 0; i < 18; i++) {
+        let index = Math.floor(Math.random() * chars.length);
+        id += chars[index];
+        checksum += index;
+    }
+    return id + checksum;
+}

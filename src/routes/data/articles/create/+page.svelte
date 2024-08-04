@@ -3,13 +3,16 @@
     import { marked } from "marked";
     import { slugify } from "$lib/utilities";
 
+    import {articleTagStore, refreshArticleTags} from '$lib/stores/TagStore';
+    import {articleCategoryStore, refreshArticleCategories} from '$lib/stores/CategoryStore';
+
     // import { addArticle } from '$lib/stores/ArticleStore';
     import {
         Article,
         ArticleCategory,
         type ArticleRequest, ArticleState,
     } from '$db/models/Article';
-    import {afterUpdate, onDestroy} from "svelte";
+    import {onMount, onDestroy} from "svelte";
 
     let article = new Article();
     let categories = Object.keys(ArticleCategory);
@@ -23,25 +26,22 @@
     let previewHTML = "";
     let formValid = false;
 
-    const addTag = (event: any) => {
-        event.preventDefault();
-        if(event.key === ',') {
-            let tag = event.target.value;
+    let tagInputValue = "";
+    let selectedTags:any = [];
 
-            article.tags = [tag.substring(0,tag.length-1).trim(), ...article.tags];
-            event.target.value = "";
+    const toggleTag = (tag: any) => {
+        if (selectedTags.includes(tag)) {
+            selectedTags = selectedTags.filter((t: any) => t !== tag);
+        } else {
+            selectedTags = [...selectedTags, tag];
         }
-    }
-
-    function deleteTag(tag: any) {
-        article.tags = article.tags.filter((val) => val !== tag)
     }
 
 
     const handleSubmit = async () => {
         //slugify
         article.slug = slugify(article.title);
-
+        article.tags = selectedTags;
         article.published = published === "Yes";
         article.highlighted = highlighted === "Yes";
 
@@ -66,6 +66,7 @@
 
     };
 
+    //TODO: Save record and auto save after timeout
     const handleSave = async() => {
 
     }
@@ -73,6 +74,11 @@
     const updatePreview = async () => {
         previewHTML = await marked.parse(article.content);
     }
+
+    onMount(async () => {
+        await refreshArticleTags();
+        await refreshArticleCategories();
+    });
 
     onDestroy(() => {
         //save record
@@ -105,8 +111,8 @@
             <div class="field">
                 <label for="category">Category</label>
                 <select id="category" name="category" bind:value={article.category}>
-                    {#each categories as category}
-                        <option value="{category}">{category}</option>
+                    {#each $articleCategoryStore as category}
+                        <option value="{category.title}">{category.title}</option>
                     {/each}
                 </select>
             </div>
@@ -123,11 +129,18 @@
             <div class="field">
                 <label for="add-tag">Tags</label>
 
-                <input type="text" on:keyup={(event) => addTag(event)}>
+            
+                
                 <div class="existing-tags">
-                    {#each article.tags as tag}
-                        <span class="tag">{tag}</span>
-                        <span class="delete-tag" on:click={() => deleteTag(tag)}>x</span>
+                    {#each $articleTagStore as tag}
+                        <button 
+                            on:click="{() => {toggleTag(tag)}}" 
+                            class={`inline-block hover:cursor-pointer mr-4`} 
+                            class:text-emerald-600={selectedTags.includes(tag)}
+                            class:font-semibold={selectedTags.includes(tag)}
+                            role="button">
+                            {tag.title}
+                        </button>
                     {/each}
                 </div>
             </div>

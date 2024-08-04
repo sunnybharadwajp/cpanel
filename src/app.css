@@ -1,15 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 /*
   1. Use a more-intuitive box-sizing model.
 */
-*, *::before, *::after {
-    box-sizing: border-box;
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
 }
 /*
   2. Remove default margin
 */
 * {
-    margin: 0;
+	margin: 0;
 }
 /*
   Typographic tweaks!
@@ -17,85 +22,108 @@
   4. Improve text rendering
 */
 body {
-    line-height: 1.5;
-    -webkit-font-smoothing: antialiased;
+	line-height: 1.5;
+	-webkit-font-smoothing: antialiased;
 }
 /*
   5. Improve media defaults
 */
-img, picture, video, canvas, svg {
-    display: block;
-    max-width: 100%;
+img,
+picture,
+video,
+canvas,
+svg {
+	display: block;
+	max-width: 100%;
 }
 /*
   6. Remove built-in form typography styles
 */
-input, button, textarea, select {
-    font: inherit;
+input,
+button,
+textarea,
+select {
+	font: inherit;
 }
 /*
   7. Avoid text overflows
 */
-p, h1, h2, h3, h4, h5, h6 {
-    overflow-wrap: break-word;
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	overflow-wrap: break-word;
 }
 /*
   8. Create a root stacking context
 */
-#root, #__next {
-    isolation: isolate;
+#root,
+#__next {
+	isolation: isolate;
 }
 
 html {
-    font-family: sans-serif;
+	font-family: sans-serif;
+}
+
+.hidden {
+	display: none;
+}
+
+.text-center {
+	text-align: center;
 }
 
 .app {
-    max-height: 100vh;
-    position: relative;
-    overflow: auto;
-    padding: 2rem;
+	max-height: 100vh;
+	position: relative;
+	overflow: auto;
+	padding: 2rem;
 }
 
 .spacer-small {
-    padding: 0.3rem;
+	padding: 0.3rem;
 }
 
 .title-bar {
-    display: flex;
-    justify-content: space-between;
+	display: flex;
+	justify-content: space-between;
 }
 
 .form-grid {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    grid-column-gap: 2rem;
+	display: grid;
+	grid-template-columns: 1fr 2fr;
+	grid-column-gap: 2rem;
 }
 
-
-
-textarea[id="content"] {
-    width: 100%;
-    height: calc(100vh - 4rem);
-    padding: 1rem;
+textarea[id='content'] {
+	width: 100%;
+	height: calc(100vh - 4rem);
+	padding: 1rem;
 }
 .field {
-    margin-bottom: 0.6rem;
+	margin-bottom: 0.6rem;
 }
 
 label {
-    display: block;
-    font-weight: bold;
+	display: block;
+	font-weight: bold;
 }
 
 select {
-    min-width: 140px;
+	min-width: 140px;
 }
 
-input[type="text"], input[type="number"], input[type="url"], textarea {
-    width: 100%;
+input[type='text'],
+input[type='number'],
+input[type='url'],
+textarea {
+	width: 100%;
 }
 
-input[type="radio"] {
-    margin-right: 0.3rem;
+input[type='radio'] {
+	margin-right: 0.3rem;
 }

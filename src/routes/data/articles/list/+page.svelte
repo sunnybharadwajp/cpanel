@@ -58,7 +58,7 @@
 <style>
     .item-grid {
         display: grid;
-        width: 650px;
+        width: 850px;
         grid-template-columns: 1fr 1fr 4fr 2fr;
     }
 
