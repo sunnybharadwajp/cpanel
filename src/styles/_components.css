@@ -1,0 +1,80 @@
+.button {
+   background-color: #014288;
+   color: var(--color-text);
+   border: none;
+   padding: 0.5rem 1rem;
+   border-radius: 0.25rem !important;
+   cursor: pointer;
+   transition: background-color 0.2s;
+}
+
+.button.primary {
+   background-color: var(--color-primary);
+   color: var(--color-text);
+}
+
+.button.primary:hover {
+   background-color: var(--color-primary-light);
+}
+
+.button.small {
+   padding: 0.3rem 0.7rem;
+   background-color: var(--color-primary);
+   font-size: 0.9rem;
+   border-radius: 2px;
+}
+
+.button.alt {
+   background-color: transparent;
+   border: 1px solid var(--color-primary);
+   color: var(--color-text);
+}
+
+input,
+select,
+textarea {
+   background-color: var(--color-background-light);
+   color: var(--color-text);
+   border: none;
+   padding: 0.25rem 0.4rem !important;
+   border-radius: 0.25rem;
+}
+
+h1 {
+   font-size: 2rem !important;
+   font-weight: 600 !important;
+}
+
+h2 {
+   font-size: 1.5rem !important;
+   font-weight: 600 !important;
+}
+
+h3 {
+   font-size: 1.25rem !important;
+   font-weight: 600 !important;
+}
+
+h4 {
+   font-size: 1rem !important;
+   font-weight: 600 !important;
+}
+
+h5 {
+   font-size: 0.875rem !important;
+   font-weight: 600 !important;
+}
+
+h6 {
+   font-size: 0.75rem !important;
+   font-weight: 600 !important;
+}
+
+label {
+   display: block;
+   margin-bottom: 0.2rem;
+}
+
+form .field {
+   margin-bottom: 1rem;
+}

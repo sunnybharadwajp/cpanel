@@ -1,4 +1,4 @@
-import { writable } from 'svelte/store';
-import type { FileInterface } from "$db/models/File";
+import { writable } from 'svelte/store'
+import type { FileInterface } from '$db/models/File'
 
-export let filesStore = writable<FileInterface[]>([]);
+export let filesStore = writable<FileInterface[]>([])
