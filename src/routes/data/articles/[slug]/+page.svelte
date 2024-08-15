@@ -30,4 +30,15 @@
    })
 </script>
 
-{@html previewHTML}
+<div class="preview-wrapper">
+   <h1>{article.title}</h1>
+   <img src={article.coverImageUrl} alt="" />
+   {@html previewHTML}
+</div>
+
+<style>
+   .preview-wrapper {
+      max-width: 800px;
+      margin: 0 auto;
+   }
+</style>

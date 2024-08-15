@@ -10,5 +10,7 @@ export const setArticleTags = (tags: ArticleTag[]) => {
 export const refreshArticleTags = async () => {
    const getArticleTags = await fetch('/api/articles/tags')
    const tags = await getArticleTags.json()
-   setArticleTags(tags)
+   const tagNames = tags.map((tag) => tag.title)
+   setArticleTags(tagNames)
+   return tagNames
 }

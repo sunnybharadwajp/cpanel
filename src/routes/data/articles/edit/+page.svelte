@@ -6,14 +6,16 @@
       type ArticleInterface,
       type ArticleRequest
    } from '$db/models/Article'
+
+   import { articleTagStore, refreshArticleTags } from '$lib/stores/TagStore'
+   import {
+      articleCategoryStore,
+      refreshArticleCategories
+   } from '$lib/stores/CategoryStore'
+
    import { onMount, onDestroy } from 'svelte'
    import { goto } from '$app/navigation'
    let published: string, highlighted: string
-
-   onMount(() => {
-      published = article.published ? 'Yes' : 'No'
-      highlighted = article.highlighted ? 'Yes' : 'No'
-   })
 
    export let data
    let article: ArticleInterface = data.article
@@ -21,27 +23,22 @@
    let states = Object.keys(ArticleState)
 
    let submitButtonDisabled: boolean = false
+   let selectedTags = data.article.tags
 
-   const addTag = (event: any) => {
+   const toggleTag = (event: any, tag: any) => {
       event.preventDefault()
-      if (event.key === ',') {
-         let tag = event.target.value
-         article.tags = [
-            tag.substring(0, tag.length - 1).trim(),
-            ...article.tags
-         ]
-         event.target.value = ''
+      if (selectedTags.includes(tag)) {
+         selectedTags = selectedTags.filter((t: any) => t !== tag)
+      } else {
+         selectedTags = [...selectedTags, tag]
       }
-   }
-
-   function deleteTag(tag: any) {
-      article.tags = article.tags.filter((val: any) => val !== tag)
    }
 
    const handleSave = async () => {}
 
    const handleSubmit = async () => {
       submitButtonDisabled = true
+      article.tags = selectedTags
       article.published = published === 'Yes'
       article.highlighted = highlighted === 'Yes'
       let id = article._id
@@ -58,6 +55,11 @@
          await goto('/data/articles/list')
       }
    }
+
+   onMount(async () => {
+      await refreshArticleTags()
+      await refreshArticleCategories()
+   })
 </script>
 
 <form>
@@ -93,8 +95,8 @@
          <div class="field">
             <label for="category">Category</label>
             <select id="category" name="category" bind:value={article.category}>
-               {#each categories as category}
-                  <option value={category}>{category}</option>
+               {#each $articleCategoryStore as category}
+                  <option value={category.title}>{category.title}</option>
                {/each}
             </select>
          </div>
@@ -111,13 +113,19 @@
          <div class="field">
             <label for="add-tag">Tags</label>
 
-            <input type="text" on:keyup={(event) => addTag(event)} />
             <div class="existing-tags">
-               {#each article.tags as tag}
-                  <span class="tag">{tag}</span>
-                  <span class="delete-tag" on:click={() => deleteTag(tag)}
-                     >x</span
+               {#each $articleTagStore as tag}
+                  <button
+                     on:click={(e) => {
+                        toggleTag(e, tag)
+                     }}
+                     class={`inline-block hover:cursor-pointer mr-4`}
+                     class:text-emerald-600={selectedTags.includes(tag)}
+                     class:font-semibold={selectedTags.includes(tag)}
+                     role="button"
                   >
+                     {tag}
+                  </button>
                {/each}
             </div>
          </div>

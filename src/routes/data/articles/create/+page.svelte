@@ -19,6 +19,8 @@
    import { onMount, onDestroy } from 'svelte'
 
    let article = new Article()
+   article.coverImageUrl =
+      'https://grvopvvzmidhtnio.public.blob.vercel-storage.com/mainsite/QebtQ8Lf4k878w1yvR722-1jLXVPxo2DyUCx4hip4wx2DGQ0w8rH.svg'
    let categories = Object.keys(ArticleCategory)
    let states = Object.keys(ArticleState)
 
@@ -45,10 +47,9 @@
       //slugify
       article.slug = slugify(article.title)
       article.tags = selectedTags
+      console.log(article.tags)
       article.published = published === 'Yes'
       article.highlighted = highlighted === 'Yes'
-
-      console.log(article)
 
       const newArticle: ArticleRequest = article
 
@@ -150,7 +151,7 @@
                      class:font-semibold={selectedTags.includes(tag)}
                      role="button"
                   >
-                     {tag.title}
+                     {tag}
                   </button>
                {/each}
             </div>

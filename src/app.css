@@ -132,3 +132,7 @@ textarea {
 input[type='radio'] {
    margin-right: 0.3rem;
 }
+
+.content-wrapper {
+   padding: 0 1rem;
+}
